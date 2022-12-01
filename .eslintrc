@@ -1,0 +1,71 @@
+{
+  "root": true,
+  "env": {
+    "node": true,
+    "es6": true
+  },
+  "settings": {
+    "node": {
+      "tryExtensions": [
+        ".js",
+        ".json",
+        ".node",
+        ".ts",
+        ".d.ts"
+      ]
+    }
+  },
+  "extends": [
+    "airbnb-typescript/base",
+    "prettier",
+    "plugin:node/recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "plugins": [
+    "prettier",
+    "import"
+  ],
+  "parserOptions": {
+    "parser": "@typescript-eslint/parser",
+    "ecmaVersion": 2018,
+    "sourceType": "module",
+    "project": [
+      "./tsconfig.json"
+    ]
+  },
+  "rules": {
+    "prettier/prettier": "error",
+    "deprecation/deprecation": "warn",
+    "no-unused-vars": [
+      "warn",
+      {
+        "args": "none"
+      }
+    ],
+    "no-unused-expressions": [
+      "warn",
+      {
+        "allowTernary": true
+      }
+    ],
+    "require-await": "warn",
+    // "import/no-cycle": "off",
+    // "no-console": "off",
+    // "func-names": "off",
+    // "object-shorthand": "off",
+    // "class-methods-use-this": "off",
+    // "import/no-dynamic-require": "off",
+    // "global-require": "off",
+    // "no-shadow": "off",
+    // "no-useless-constructor": "off",
+    "node/no-unsupported-features/es-syntax": "off",
+    "node/no-unpublished-require": "off",
+    // "lines-between-class-members": "off",
+    // "import/prefer-default-export": "off",
+    // "import/named": "off",
+    "@typescript-eslint/no-var-requires": "off"
+    // "@typescript-eslint/no-explicit-any": "off",
+    // "@typescript-eslint/interface-name-prefix": "off"
+  },
+  "overrides": []
+}

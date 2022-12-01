@@ -24,3 +24,7 @@ console.log(Math.max(...sums));
 //       .map((arr) => arr.reduce((a, b) => a + b, 0))
 //   )
 // );
+
+const threeLargest = sums.sort((a, b) => b - a).slice(0, 3);
+const threeLargestSum = threeLargest.reduce((a, b) => a + b, 0);
+console.log(threeLargestSum);

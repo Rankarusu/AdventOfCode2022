@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
-    "dev": "ts-node-dev --respawn --transpile-only --exit-child --watch src src/01/01.ts"
+    "start": "ts-node src/${day}/${day}.ts",
+    "dev": "ts-node-dev --respawn --transpile-only --exit-child --watch src src/${day}/${day}.ts"
   },
   "author": "",
   "license": "ISC",

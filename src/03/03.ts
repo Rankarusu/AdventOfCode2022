@@ -10,12 +10,33 @@ const compartments = lines.map((line) => {
 });
 
 const result = compartments.reduce((a, b) => {
-  const intersection = Array.from(b[0]).filter((value) =>
-    Array.from(b[1]).includes(value)
+  const intersection = Array.from(b[0]).find((char) =>
+    Array.from(b[1]).includes(char)
   );
-  const priority = values.indexOf(intersection[0]);
+  const priority = values.indexOf(intersection!);
 
   return a + priority;
 }, 0);
 
 console.log(result);
+
+//part 2
+const groups: string[][] = [];
+
+//split lines in groups of three
+for (let i = 0; i < lines.length; i += 3) {
+  const chunk = lines.slice(i, i + 3);
+  groups.push(chunk);
+}
+
+const result2 = groups.reduce((a, b) => {
+  const intersection = Array.from(b[0]).find(
+    (char) => Array.from(b[1]).includes(char) && Array.from(b[2]).includes(char)
+  );
+
+  const priority = values.indexOf(intersection!);
+
+  return a + priority;
+}, 0);
+
+console.log(result2);

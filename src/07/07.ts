@@ -4,7 +4,7 @@ const content = readFile(7);
 
 const lines = content.split('\n');
 
-const validValues: number[] = [];
+let validValues: number[] = [];
 
 enum nodeType {
   file,
@@ -28,11 +28,18 @@ class Node {
     this.type = type;
   }
 
-  getSize(): number {
-    const childSizes = this.children.reduce((a, b) => a + b.getSize(), 0);
+  getSize(num: number, operation: string): number {
+    const childSizes = this.children.reduce(
+      (a, b) => a + b.getSize(num, operation),
+      0
+    );
     const sum = this.value + childSizes;
-    if (this.type === nodeType.dir && sum < 100000) {
-      validValues.push(sum);
+    if (this.type === nodeType.dir) {
+      if (operation === '<' && sum < num) {
+        validValues.push(sum);
+      } else if (operation === '>' && sum > num) {
+        validValues.push(sum);
+      }
     }
     return this.value + childSizes;
   }
@@ -85,7 +92,17 @@ let root = currentNode;
 while (root?.parent !== undefined) {
   root = root.parent;
 }
-root?.getSize();
+const rootSize = root!.getSize(100000, '<');
 
 const result = validValues.reduce((a, b) => a + b);
 console.log(result);
+
+// part 2
+const unusedSpace = 70000000 - rootSize;
+
+const neededSpace = 30000000 - unusedSpace;
+
+validValues = [];
+root?.getSize(neededSpace, '>');
+const result2 = Math.min(...validValues);
+console.log(result2);

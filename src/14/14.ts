@@ -11,9 +11,9 @@ const rockLines = content
       )
   );
 
-const mapSize = 600;
+const mapSize = 20000;
 
-const cave = [...Array(mapSize)].map((e) => Array(mapSize));
+const cave = [...Array(mapSize)].map(() => Array(mapSize));
 
 rockLines.forEach((line) => {
   for (let i = 1; i < line.length; i++) {
@@ -42,15 +42,15 @@ rockLines.forEach((line) => {
 
 let sandCounter = 0;
 
-while (true) {
-  try {
-    sandFall(500, 0);
-  } catch (error) {
-    console.log(error);
-    console.log(sandCounter);
-    break;
-  }
-}
+// while (true) {
+//   try {
+//     sandFall(500, 0);
+//   } catch (error) {
+//     console.log(error);
+//     console.log(sandCounter);
+//     break;
+//   }
+// }
 
 function sandFall(x: number, y: number) {
   let sandX = x;
@@ -61,6 +61,57 @@ function sandFall(x: number, y: number) {
     if (sandY > mapSize) {
       //fist sand unit to fall into the abyss
       throw new Error('sand has fallen into the abyss');
+    }
+
+    if (!cave[sandX][sandY + 1]) {
+      sandY++;
+    } else {
+      if (!cave[sandX - 1][sandY + 1]) {
+        sandX--;
+        sandY++;
+      } else if (!cave[sandX + 1][sandY + 1]) {
+        sandX++;
+        sandY++;
+      } else {
+        destinationReached = true;
+        sandCounter++;
+
+        cave[sandX][sandY] = 'o';
+      }
+    }
+  }
+}
+
+//part 2
+const groundY = Math.max(...rockLines.flat().map((x) => x[1])) + 2;
+
+while (true) {
+  try {
+    sandFall2(500, 0);
+  } catch (error) {
+    console.log(error);
+    console.log(sandCounter);
+    break;
+  }
+}
+
+function sandFall2(x: number, y: number) {
+  let sandX = x;
+  let sandY = y;
+  let destinationReached = false;
+
+  while (!destinationReached) {
+    if (cave[x][y]) {
+      throw new Error('ceiling reached');
+    }
+
+    if (sandY === groundY - 1) {
+      //fist sand unit to fall into the abyss
+      // throw new Error('sand has fallen into the abyss');
+      destinationReached = true;
+      sandCounter++;
+
+      cave[sandX][sandY] = 'o';
     }
 
     if (!cave[sandX][sandY + 1]) {
